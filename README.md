@@ -91,6 +91,8 @@ kaos> string.is_numeric("01234x")
 false
 kaos> string.is_numeric(" 01234")
 false
+kaos> string.is_numeric(" ")
+false
 kaos> string.is_numeric("")
 false
 ```
@@ -128,8 +130,8 @@ false
 Returns `true` if string `s` only contains whitespaces and not empty, `false` otherwise.
 
 ```chaos
-kaos> string.is_alnum("he11o w0rld\t")
-true
+kaos> string.is_space("he11o w0rld\t")
+false
 kaos> string.is_space("a")
 false
 kaos> string.is_space("1")
@@ -139,5 +141,43 @@ true
 kaos> string.is_space(" ")
 true
 kaos> string.is_space("")
+false
+```
+
+### string.is_lower(str s)
+
+Returns `true` if string `s` only contains lowercase alphabetic characters, numeric characters or whitespace, `false` otherwise.
+
+```chaos
+kaos> string.is_lower("hello world")
+true
+kaos> string.is_lower("hello world 01234")
+true
+kaos> string.is_lower("HELLO WORLD")
+false
+kaos> string.is_lower("HeLlO WoRLd")
+false
+kaos> string.is_lower(" ")
+true
+kaos> string.is_lower("")
+false
+```
+
+### string.is_upper(str s)
+
+Returns `true` if string `s` only contains uppercase alphabetic characters, numeric characters or whitespace, `false` otherwise.
+
+```chaos
+kaos> string.is_upper("hello world")
+false
+kaos> string.is_upper("HELLO WORLD")
+true
+kaos> string.is_upper("HELLO WORLD 01234")
+true
+kaos> string.is_upper("HeLlO WoRLd")
+false
+kaos> string.is_upper(" ")
+true
+kaos> string.is_upper("")
 false
 ```

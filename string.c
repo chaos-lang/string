@@ -398,6 +398,66 @@ int KAOS_EXPORT Kaos_is_space()
     return 0;
 }
 
+// string.is_lower(str s)
+
+bool str_is_lower(const char * s) {
+    if (s == NULL || *s == '\0')
+        return false;
+
+    unsigned char c;
+
+    while ( ( c = *s ) && ( islower( c ) || isdigit( c ) || isspace( c ) ) ) ++s;
+
+    return *s == '\0';
+}
+
+char *is_lower_params_name[] = {
+    "s"
+};
+unsigned is_lower_params_type[] = {
+    K_STRING
+};
+unsigned short is_lower_params_length = (unsigned short) sizeof(is_lower_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_is_lower()
+{
+    char* s = kaos.getVariableString(is_lower_params_name[0]);
+    s = escape_the_sequences_in_string_literal(s);
+    bool b = str_is_lower(s);
+    free(s);
+    kaos.returnVariableBool(b);
+    return 0;
+}
+
+// string.is_upper(str s)
+
+bool str_is_upper(const char * s) {
+    if (s == NULL || *s == '\0')
+        return false;
+
+    unsigned char c;
+
+    while ( ( c = *s ) && ( isupper( c ) || isdigit( c ) || isspace( c ) ) ) ++s;
+
+    return *s == '\0';
+}
+
+char *is_upper_params_name[] = {
+    "s"
+};
+unsigned is_upper_params_type[] = {
+    K_STRING
+};
+unsigned short is_upper_params_length = (unsigned short) sizeof(is_upper_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_is_upper()
+{
+    char* s = kaos.getVariableString(is_upper_params_name[0]);
+    s = escape_the_sequences_in_string_literal(s);
+    bool b = str_is_upper(s);
+    free(s);
+    kaos.returnVariableBool(b);
+    return 0;
+}
+
 
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
@@ -417,6 +477,8 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos.defineFunction("is_alpha", K_BOOL, is_alpha_params_name, is_alpha_params_type, is_alpha_params_length);
     kaos.defineFunction("is_alnum", K_BOOL, is_alnum_params_name, is_alnum_params_type, is_alnum_params_length);
     kaos.defineFunction("is_space", K_BOOL, is_space_params_name, is_space_params_type, is_space_params_length);
+    kaos.defineFunction("is_lower", K_BOOL, is_lower_params_name, is_lower_params_type, is_lower_params_length);
+    kaos.defineFunction("is_upper", K_BOOL, is_upper_params_name, is_upper_params_type, is_upper_params_length);
 
     return 0;
 }
