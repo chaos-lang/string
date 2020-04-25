@@ -4,7 +4,7 @@ SHELL=/bin/bash
 
 UNAME_S := $(shell uname -s)
 
-export SPELL_NAME=template
+export SPELL_NAME=string
 
 default:
 	export CHAOS_COMPILER=gcc

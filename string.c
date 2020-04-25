@@ -5,7 +5,7 @@ unsigned hello_params_type[] = {};
 unsigned short hello_params_length = 0;
 int KAOS_EXPORT Kaos_hello()
 {
-    fprintf(stdout, "Hello from the template!\n");
+    fprintf(stdout, "Hello from the string!\n");
     fflush(stdout);
     return 0;
 }
