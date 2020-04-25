@@ -20,3 +20,12 @@ Replace all occurrences of the `needle` string with the `replacement` string.
 kaos> string.replace("hello world", "world", "friend")
 hello friend
 ```
+
+### string.upper(str s)
+
+Make the all characters in string `s` uppercase.
+
+```chaos
+kaos> string.upper("hello world")
+HELLO WORLD
+```

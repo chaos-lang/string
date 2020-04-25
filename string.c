@@ -69,10 +69,36 @@ int KAOS_EXPORT Kaos_replace()
     return 0;
 }
 
+
+// string.upper(str s)
+
+void str_upper(char * s) {
+    while (*s) {
+        *s = toupper((unsigned char) *s);
+        s++;
+    }
+}
+
+char *upper_params_name[] = {
+    "s"
+};
+unsigned upper_params_type[] = {
+    K_STRING
+};
+unsigned short upper_params_length = (unsigned short) sizeof(upper_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_upper()
+{
+    char* s = kaos.getVariableString(upper_params_name[0]);
+    str_upper(s);
+    kaos.returnVariableString(s);
+    return 0;
+}
+
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
     kaos.defineFunction("replace", K_STRING, replace_params_name, replace_params_type, replace_params_length);
+    kaos.defineFunction("upper", K_STRING, upper_params_name, upper_params_type, upper_params_length);
 
     return 0;
 }
