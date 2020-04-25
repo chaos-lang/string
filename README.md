@@ -29,3 +29,13 @@ Make the all characters in string `s` uppercase.
 kaos> string.upper("hello world")
 HELLO WORLD
 ```
+
+### string.lower(str s)
+
+Make the all characters in string `s` lowercase.
+
+```chaos
+kaos> import string
+kaos> string.lower("HeLlO WoRLd")
+hello world
+```

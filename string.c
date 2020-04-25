@@ -94,11 +94,38 @@ int KAOS_EXPORT Kaos_upper()
     return 0;
 }
 
+
+// string.lower(str s)
+
+void str_lower(char * s) {
+    while (*s) {
+        *s = tolower((unsigned char) *s);
+        s++;
+    }
+}
+
+char *lower_params_name[] = {
+    "s"
+};
+unsigned lower_params_type[] = {
+    K_STRING
+};
+unsigned short lower_params_length = (unsigned short) sizeof(lower_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_lower()
+{
+    char* s = kaos.getVariableString(lower_params_name[0]);
+    str_lower(s);
+    kaos.returnVariableString(s);
+    return 0;
+}
+
+
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
     kaos.defineFunction("replace", K_STRING, replace_params_name, replace_params_type, replace_params_length);
     kaos.defineFunction("upper", K_STRING, upper_params_name, upper_params_type, upper_params_length);
+    kaos.defineFunction("lower", K_STRING, lower_params_name, lower_params_type, lower_params_length);
 
     return 0;
 }
