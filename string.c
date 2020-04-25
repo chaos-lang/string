@@ -224,11 +224,14 @@ int KAOS_EXPORT Kaos_is_empty()
 // string.is_numeric(str s)
 
 bool str_is_numeric(const char * s) {
-    if (s == NULL || *s == '\0' || isspace(*s))
+    if (s == NULL || *s == '\0')
         return false;
-    char * p;
-    strtod (s, &p);
-    return (*p == '\0');
+
+    unsigned char c;
+
+    while ( ( c = *s ) && ( isdigit( c ) ) ) ++s;
+
+    return *s == '\0';
 }
 
 char *is_numeric_params_name[] = {
@@ -276,6 +279,36 @@ int KAOS_EXPORT Kaos_is_alpha()
     return 0;
 }
 
+// string.is_alnum(str s)
+
+bool str_is_alnum(const char * s) {
+    if (s == NULL || *s == '\0')
+        return false;
+
+    unsigned char c;
+
+    while ( ( c = *s ) && ( isalnum( c ) || isblank( c ) ) ) ++s;
+
+    return *s == '\0';
+}
+
+char *is_alnum_params_name[] = {
+    "s"
+};
+unsigned is_alnum_params_type[] = {
+    K_STRING
+};
+unsigned short is_alnum_params_length = (unsigned short) sizeof(is_alnum_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_is_alnum()
+{
+    char* s = kaos.getVariableString(is_alnum_params_name[0]);
+    bool b = str_is_alnum(s);
+    free(s);
+    kaos.returnVariableBool(b);
+    return 0;
+}
+
+
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
@@ -292,6 +325,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos.defineFunction("is_empty", K_BOOL, is_empty_params_name, is_empty_params_type, is_empty_params_length);
     kaos.defineFunction("is_numeric", K_BOOL, is_numeric_params_name, is_empty_params_type, is_empty_params_length);
     kaos.defineFunction("is_alpha", K_BOOL, is_alpha_params_name, is_alpha_params_type, is_alpha_params_length);
+    kaos.defineFunction("is_alnum", K_BOOL, is_alnum_params_name, is_alnum_params_type, is_alnum_params_length);
 
     return 0;
 }

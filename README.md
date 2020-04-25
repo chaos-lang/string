@@ -109,3 +109,16 @@ true
 kaos> string.is_alpha("")
 false
 ```
+
+### string.is_alnum(str s)
+
+Returns `true` if string `s` only contains alphanumeric characters or whitespace and not empty, `false` otherwise.
+
+```chaos
+kaos> string.is_alnum("he11o w0rld")
+true
+kaos> string.is_alnum(" ")
+true
+kaos> string.is_alnum("")
+false
+```
