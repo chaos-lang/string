@@ -1,0 +1,3 @@
+import string
+list a = ["foo", "bar", "baz"]
+print string.join(a, " ")

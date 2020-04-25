@@ -67,6 +67,18 @@ kaos> string.split("A quick brown fox jumps over the lazy dog", " ")
 ['A', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
 ```
 
+### string.join(list words, str separator)
+
+Concatenate a list of strings `words` into a string by separating them with string `separator`.
+
+```chaos
+kaos> list a = ["foo", "bar", "baz"]
+kaos> string.join(a, " ")
+foo bar baz
+kaos> string.join(a, "")
+foobarbaz
+```
+
 ## Information functions
 
 ### string.length(str s)

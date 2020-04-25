@@ -213,6 +213,40 @@ int KAOS_EXPORT Kaos_split()
     return 0;
 }
 
+// string.join(list words, str delimiter)
+
+char *join_params_name[] = {
+    "words",
+    "separator"
+};
+unsigned join_params_type[] = {
+    K_LIST,
+    K_STRING
+};
+unsigned short join_params_length = (unsigned short) sizeof(join_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_join()
+{
+    char* words = malloc(strlen(join_params_name[0]) + 1);
+    strcpy(words, join_params_name[0]);
+    char* separator = kaos.getVariableString(join_params_name[1]);
+
+    char* result = "";
+    unsigned long length = kaos.getListLength(words);
+    for (unsigned long i = 0; i < length; i++) {
+        char* value = kaos.getListElementString(words, i);
+        result = str_concat(result, value);
+        free(value);
+        if (i + 1 != length) {
+            result = str_concat(result, separator);
+        }
+    }
+
+    free(words);
+    free(separator);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
 
 // Information functions
 
@@ -501,6 +535,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos.defineFunction("capitalize", K_STRING, capitalize_params_name, capitalize_params_type, capitalize_params_length);
     kaos.defineFunction("concat", K_STRING, concat_params_name, concat_params_type, concat_params_length);
     kaos.defineFunction("split", K_LIST, split_params_name, split_params_type, split_params_length);
+    kaos.defineFunction("join", K_STRING, join_params_name, join_params_type, join_params_length);
 
     // Information functions
     kaos.defineFunction("length", K_NUMBER, length_params_name, length_params_type, length_params_length);

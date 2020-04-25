@@ -8,6 +8,9 @@ print string.capitalize("hello world")
 print string.capitalize("")
 print string.concat("hello", " world")
 print string.split("A quick brown fox jumps over the lazy dog", " ")
+list a = ["foo", "bar", "baz"]
+print string.join(a, " ")
+print string.join(a, "")
 
 // Information functions
 print string.length("hello world")
