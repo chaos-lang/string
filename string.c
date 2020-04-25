@@ -145,6 +145,46 @@ int KAOS_EXPORT Kaos_capitalize()
 }
 
 
+// string.concat(str s)
+
+char *str_concat(char *s1, const char *s2)
+{
+    size_t n = strlen(s1);
+
+    char *p = (char *)malloc(n + strlen(s2) + 1);
+
+    if (p) {
+        strcpy(p, s1);
+        strcpy(p + n, s2);
+    }
+
+    if ((s1 != NULL) && (s1[0] != '\0')) {
+        free(s1);
+    }
+    return p;
+}
+
+
+char *concat_params_name[] = {
+    "s1",
+    "s2"
+};
+unsigned concat_params_type[] = {
+    K_STRING,
+    K_STRING
+};
+unsigned short concat_params_length = (unsigned short) sizeof(concat_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_concat()
+{
+    char* s1 = kaos.getVariableString(concat_params_name[0]);
+    char* s2 = kaos.getVariableString(concat_params_name[1]);
+    s1 = str_concat(s1, s2);
+    free(s2);
+    kaos.returnVariableString(s1);
+    return 0;
+}
+
+
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
@@ -152,6 +192,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos.defineFunction("upper", K_STRING, upper_params_name, upper_params_type, upper_params_length);
     kaos.defineFunction("lower", K_STRING, lower_params_name, lower_params_type, lower_params_length);
     kaos.defineFunction("capitalize", K_STRING, capitalize_params_name, capitalize_params_type, capitalize_params_length);
+    kaos.defineFunction("concat", K_STRING, concat_params_name, concat_params_type, concat_params_length);
 
     return 0;
 }

@@ -47,6 +47,13 @@ Capitalize the string `s`.
 ```chaos
 kaos> string.capitalize("hello world")
 Hello world
-kaos> string.capitalize("")
+```
 
+### string.concat(str s1, str s2)
+
+Concatenate string `s1` and string `s2`.
+
+```chaos
+kaos> string.concat("hello", " world")
+hello world
 ```
