@@ -68,3 +68,14 @@ Returns the length of the string `s`.
 kaos> string.length("hello world")
 11
 ```
+
+### string.is_empty(str s)
+
+Returns whether the string `s` empty or not.
+
+```chaos
+kaos> string.is_empty("hello world")
+false
+kaos> string.is_empty("")
+true
+```

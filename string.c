@@ -201,12 +201,29 @@ unsigned short length_params_length = (unsigned short) sizeof(length_params_type
 int KAOS_EXPORT Kaos_length()
 {
     char* s = kaos.getVariableString(length_params_name[0]);
-    long long length = (long long) strlen(s);
+    long long i = (long long) strlen(s);
     free(s);
-    kaos.returnVariableInt(length);
+    kaos.returnVariableInt(i);
     return 0;
 }
 
+// string.is_empty(str s)
+
+char *is_empty_params_name[] = {
+    "s"
+};
+unsigned is_empty_params_type[] = {
+    K_STRING
+};
+unsigned short is_empty_params_length = (unsigned short) sizeof(is_empty_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_is_empty()
+{
+    char* s = kaos.getVariableString(is_empty_params_name[0]);
+    bool b = (s[0] == '\0');
+    free(s);
+    kaos.returnVariableBool(b);
+    return 0;
+}
 
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
@@ -221,6 +238,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 
     // Information functions
     kaos.defineFunction("length", K_NUMBER, length_params_name, length_params_type, length_params_length);
+    kaos.defineFunction("is_empty", K_BOOL, is_empty_params_name, is_empty_params_type, is_empty_params_length);
 
     return 0;
 }
