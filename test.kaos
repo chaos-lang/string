@@ -3,3 +3,5 @@ import string
 print string.replace("hello world", "world", "friend")
 print string.upper("hello world")
 print string.lower("HeLlO WoRLd")
+print string.capitalize("hello world")
+print string.capitalize("")

@@ -39,3 +39,14 @@ kaos> import string
 kaos> string.lower("HeLlO WoRLd")
 hello world
 ```
+
+### string.capitalize(str s)
+
+Capitalize the string `s`.
+
+```chaos
+kaos> string.capitalize("hello world")
+Hello world
+kaos> string.capitalize("")
+
+```

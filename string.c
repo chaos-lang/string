@@ -120,12 +120,38 @@ int KAOS_EXPORT Kaos_lower()
 }
 
 
+// string.capitalize(str s)
+
+void str_capitalize(char * s) {
+    while (*s) {
+        *s = toupper((unsigned char) *s);
+        break;
+    }
+}
+
+char *capitalize_params_name[] = {
+    "s"
+};
+unsigned capitalize_params_type[] = {
+    K_STRING
+};
+unsigned short capitalize_params_length = (unsigned short) sizeof(capitalize_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_capitalize()
+{
+    char* s = kaos.getVariableString(capitalize_params_name[0]);
+    str_capitalize(s);
+    kaos.returnVariableString(s);
+    return 0;
+}
+
+
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
     kaos.defineFunction("replace", K_STRING, replace_params_name, replace_params_type, replace_params_length);
     kaos.defineFunction("upper", K_STRING, upper_params_name, upper_params_type, upper_params_length);
     kaos.defineFunction("lower", K_STRING, lower_params_name, lower_params_type, lower_params_length);
+    kaos.defineFunction("capitalize", K_STRING, capitalize_params_name, capitalize_params_type, capitalize_params_length);
 
     return 0;
 }
