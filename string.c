@@ -185,6 +185,63 @@ int KAOS_EXPORT Kaos_concat()
 
 // Information functions
 
+void remove_nth_char(char* string, long long n) {
+    memmove(&string[n], &string[n + 1], strlen(string) - n);
+}
+
+char* escape_the_sequences_in_string_literal(char* string) {
+    char* new_string = malloc(strlen(string) + 1);
+    strcpy(new_string, string);
+
+    for (long long i = 0; i < strlen(new_string); i++){
+        if (new_string[i] == '\\') {
+            switch (new_string[i+1])
+            {
+                case '\\':
+                    remove_nth_char(new_string, i);
+                    break;
+                case 'a':
+                    new_string[i+1] = '\a';
+                    remove_nth_char(new_string, i);
+                    break;
+                case 'b':
+                    new_string[i+1] = '\b';
+                    remove_nth_char(new_string, i);
+                    break;
+                case 'e':
+                    new_string[i+1] = '\e';
+                    remove_nth_char(new_string, i);
+                    break;
+                case 'f':
+                    new_string[i+1] = '\f';
+                    remove_nth_char(new_string, i);
+                    break;
+                case 'n':
+                    new_string[i+1] = '\n';
+                    remove_nth_char(new_string, i);
+                    break;
+                case 'r':
+                    new_string[i+1] = '\r';
+                    remove_nth_char(new_string, i);
+                    break;
+                case 't':
+                    new_string[i+1] = '\t';
+                    remove_nth_char(new_string, i);
+                    break;
+                case 'v':
+                    new_string[i+1] = '\v';
+                    remove_nth_char(new_string, i);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    free(string);
+    return new_string;
+}
+
 // string.length(str s)
 
 char *length_params_name[] = {
@@ -244,6 +301,7 @@ unsigned short is_numeric_params_length = (unsigned short) sizeof(is_numeric_par
 int KAOS_EXPORT Kaos_is_numeric()
 {
     char* s = kaos.getVariableString(is_numeric_params_name[0]);
+    s = escape_the_sequences_in_string_literal(s);
     bool b = str_is_numeric(s);
     free(s);
     kaos.returnVariableBool(b);
@@ -258,7 +316,7 @@ bool str_is_alpha(const char * s) {
 
     unsigned char c;
 
-    while ( ( c = *s ) && ( isalpha( c ) || isblank( c ) ) ) ++s;
+    while ( ( c = *s ) && ( isalpha( c ) || isspace( c ) ) ) ++s;
 
     return *s == '\0';
 }
@@ -273,6 +331,7 @@ unsigned short is_alpha_params_length = (unsigned short) sizeof(is_alpha_params_
 int KAOS_EXPORT Kaos_is_alpha()
 {
     char* s = kaos.getVariableString(is_alpha_params_name[0]);
+    s = escape_the_sequences_in_string_literal(s);
     bool b = str_is_alpha(s);
     free(s);
     kaos.returnVariableBool(b);
@@ -287,7 +346,7 @@ bool str_is_alnum(const char * s) {
 
     unsigned char c;
 
-    while ( ( c = *s ) && ( isalnum( c ) || isblank( c ) ) ) ++s;
+    while ( ( c = *s ) && ( isalnum( c ) || isspace( c ) ) ) ++s;
 
     return *s == '\0';
 }
@@ -302,6 +361,7 @@ unsigned short is_alnum_params_length = (unsigned short) sizeof(is_alnum_params_
 int KAOS_EXPORT Kaos_is_alnum()
 {
     char* s = kaos.getVariableString(is_alnum_params_name[0]);
+    s = escape_the_sequences_in_string_literal(s);
     bool b = str_is_alnum(s);
     free(s);
     kaos.returnVariableBool(b);
