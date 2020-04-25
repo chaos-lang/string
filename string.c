@@ -368,6 +368,36 @@ int KAOS_EXPORT Kaos_is_alnum()
     return 0;
 }
 
+// string.is_space(str s)
+
+bool str_is_space(const char * s) {
+    if (s == NULL || *s == '\0')
+        return false;
+
+    unsigned char c;
+
+    while ( ( c = *s ) && ( isspace( c ) ) ) ++s;
+
+    return *s == '\0';
+}
+
+char *is_space_params_name[] = {
+    "s"
+};
+unsigned is_space_params_type[] = {
+    K_STRING
+};
+unsigned short is_space_params_length = (unsigned short) sizeof(is_space_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_is_space()
+{
+    char* s = kaos.getVariableString(is_space_params_name[0]);
+    s = escape_the_sequences_in_string_literal(s);
+    bool b = str_is_space(s);
+    free(s);
+    kaos.returnVariableBool(b);
+    return 0;
+}
+
 
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
@@ -386,6 +416,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos.defineFunction("is_numeric", K_BOOL, is_numeric_params_name, is_empty_params_type, is_empty_params_length);
     kaos.defineFunction("is_alpha", K_BOOL, is_alpha_params_name, is_alpha_params_type, is_alpha_params_length);
     kaos.defineFunction("is_alnum", K_BOOL, is_alnum_params_name, is_alnum_params_type, is_alnum_params_length);
+    kaos.defineFunction("is_space", K_BOOL, is_space_params_name, is_space_params_type, is_space_params_length);
 
     return 0;
 }

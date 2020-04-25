@@ -122,3 +122,22 @@ true
 kaos> string.is_alnum("")
 false
 ```
+
+### string.is_space(str s)
+
+Returns `true` if string `s` only contains whitespaces and not empty, `false` otherwise.
+
+```chaos
+kaos> string.is_alnum("he11o w0rld\t")
+true
+kaos> string.is_space("a")
+false
+kaos> string.is_space("1")
+false
+kaos> string.is_space("\n")
+true
+kaos> string.is_space(" ")
+true
+kaos> string.is_space("")
+false
+```
