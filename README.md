@@ -82,7 +82,7 @@ true
 
 ### string.is_numeric(str s)
 
-Returns `true` if all characters in the string are numeric characters, and there is at least one character, `false` otherwise.
+Returns `true` if all characters in the string `s` are numeric characters, and there is at least one character, `false` otherwise.
 
 ```chaos
 kaos> string.is_numeric("01234")
@@ -92,5 +92,20 @@ false
 kaos> string.is_numeric(" 01234")
 false
 kaos> string.is_numeric("")
+false
+```
+
+### string.is_alpha(str s)
+
+Returns `true` if string `s` only contains alphabetic characters or whitespace and not empty, `false` otherwise.
+
+```chaos
+kaos> string.is_alpha("hello world")
+true
+kaos> string.is_alpha("he11o w0rld")
+false
+kaos> string.is_alpha(" ")
+true
+kaos> string.is_alpha("")
 false
 ```

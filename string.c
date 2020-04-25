@@ -71,7 +71,6 @@ int KAOS_EXPORT Kaos_replace()
     return 0;
 }
 
-
 // string.upper(str s)
 
 void str_upper(char * s) {
@@ -95,7 +94,6 @@ int KAOS_EXPORT Kaos_upper()
     kaos.returnVariableString(s);
     return 0;
 }
-
 
 // string.lower(str s)
 
@@ -121,7 +119,6 @@ int KAOS_EXPORT Kaos_lower()
     return 0;
 }
 
-
 // string.capitalize(str s)
 
 void str_capitalize(char * s) {
@@ -145,7 +142,6 @@ int KAOS_EXPORT Kaos_capitalize()
     kaos.returnVariableString(s);
     return 0;
 }
-
 
 // string.concat(str s)
 
@@ -251,6 +247,35 @@ int KAOS_EXPORT Kaos_is_numeric()
     return 0;
 }
 
+// string.is_alpha(str s)
+
+bool str_is_alpha(const char * s) {
+    if (s == NULL || *s == '\0')
+        return false;
+
+    unsigned char c;
+
+    while ( ( c = *s ) && ( isalpha( c ) || isblank( c ) ) ) ++s;
+
+    return *s == '\0';
+}
+
+char *is_alpha_params_name[] = {
+    "s"
+};
+unsigned is_alpha_params_type[] = {
+    K_STRING
+};
+unsigned short is_alpha_params_length = (unsigned short) sizeof(is_alpha_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_is_alpha()
+{
+    char* s = kaos.getVariableString(is_alpha_params_name[0]);
+    bool b = str_is_alpha(s);
+    free(s);
+    kaos.returnVariableBool(b);
+    return 0;
+}
+
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
@@ -266,6 +291,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos.defineFunction("length", K_NUMBER, length_params_name, length_params_type, length_params_length);
     kaos.defineFunction("is_empty", K_BOOL, is_empty_params_name, is_empty_params_type, is_empty_params_length);
     kaos.defineFunction("is_numeric", K_BOOL, is_numeric_params_name, is_empty_params_type, is_empty_params_length);
+    kaos.defineFunction("is_alpha", K_BOOL, is_alpha_params_name, is_alpha_params_type, is_alpha_params_length);
 
     return 0;
 }
