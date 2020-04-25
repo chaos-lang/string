@@ -58,6 +58,15 @@ kaos> string.concat("hello", " world")
 hello world
 ```
 
+### string.split(str s, str delimiter)
+
+Split the string `s` into a list according to the string `delimiter`.
+
+```chaos
+kaos> string.split("A quick brown fox jumps over the lazy dog", " ")
+['A', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
+```
+
 ## Information functions
 
 ### string.length(str s)
