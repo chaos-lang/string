@@ -225,6 +225,32 @@ int KAOS_EXPORT Kaos_is_empty()
     return 0;
 }
 
+// string.is_numeric(str s)
+
+bool str_is_numeric(const char * s) {
+    if (s == NULL || *s == '\0' || isspace(*s))
+        return false;
+    char * p;
+    strtod (s, &p);
+    return (*p == '\0');
+}
+
+char *is_numeric_params_name[] = {
+    "s"
+};
+unsigned is_numeric_params_type[] = {
+    K_STRING
+};
+unsigned short is_numeric_params_length = (unsigned short) sizeof(is_numeric_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_is_numeric()
+{
+    char* s = kaos.getVariableString(is_numeric_params_name[0]);
+    bool b = str_is_numeric(s);
+    free(s);
+    kaos.returnVariableBool(b);
+    return 0;
+}
+
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
@@ -239,6 +265,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     // Information functions
     kaos.defineFunction("length", K_NUMBER, length_params_name, length_params_type, length_params_length);
     kaos.defineFunction("is_empty", K_BOOL, is_empty_params_name, is_empty_params_type, is_empty_params_length);
+    kaos.defineFunction("is_numeric", K_BOOL, is_numeric_params_name, is_empty_params_type, is_empty_params_length);
 
     return 0;
 }

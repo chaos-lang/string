@@ -1,12 +1,19 @@
 import string
 
+// String operations
 print string.replace("hello world", "world", "friend")
 print string.upper("hello world")
 print string.lower("HeLlO WoRLd")
 print string.capitalize("hello world")
 print string.capitalize("")
 print string.concat("hello", " world")
+
+// Information functions
 print string.length("hello world")
 print string.length("")
 print string.is_empty("hello world")
 print string.is_empty("")
+print string.is_numeric("01234")
+print string.is_numeric("01234x")
+print string.is_numeric(" 01234")
+print string.is_numeric("")

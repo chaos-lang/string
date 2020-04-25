@@ -79,3 +79,18 @@ false
 kaos> string.is_empty("")
 true
 ```
+
+### string.is_numeric(str s)
+
+Returns `true` if all characters in the string are numeric characters, and there is at least one character, `false` otherwise.
+
+```chaos
+kaos> string.is_numeric("01234")
+true
+kaos> string.is_numeric("01234x")
+false
+kaos> string.is_numeric(" 01234")
+false
+kaos> string.is_numeric("")
+false
+```
