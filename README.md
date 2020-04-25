@@ -57,3 +57,14 @@ Concatenate string `s1` and string `s2`.
 kaos> string.concat("hello", " world")
 hello world
 ```
+
+## Information functions
+
+### string.length(str s)
+
+Returns the length of the string `s`.
+
+```chaos
+kaos> string.length("hello world")
+11
+```

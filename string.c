@@ -4,6 +4,8 @@
 
 #include "Chaos.h"
 
+// String operations
+
 // string.replace(str haystack, str needle, str replacement)
 
 char *str_replace(char *haystack, char *needle, char *replacement) {
@@ -185,14 +187,40 @@ int KAOS_EXPORT Kaos_concat()
 }
 
 
+// Information functions
+
+// string.length(str s)
+
+char *length_params_name[] = {
+    "s"
+};
+unsigned length_params_type[] = {
+    K_STRING
+};
+unsigned short length_params_length = (unsigned short) sizeof(length_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_length()
+{
+    char* s = kaos.getVariableString(length_params_name[0]);
+    long long length = (long long) strlen(s);
+    free(s);
+    kaos.returnVariableInt(length);
+    return 0;
+}
+
+
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
+
+    // String operations
     kaos.defineFunction("replace", K_STRING, replace_params_name, replace_params_type, replace_params_length);
     kaos.defineFunction("upper", K_STRING, upper_params_name, upper_params_type, upper_params_length);
     kaos.defineFunction("lower", K_STRING, lower_params_name, lower_params_type, lower_params_length);
     kaos.defineFunction("capitalize", K_STRING, capitalize_params_name, capitalize_params_type, capitalize_params_length);
     kaos.defineFunction("concat", K_STRING, concat_params_name, concat_params_type, concat_params_length);
+
+    // Information functions
+    kaos.defineFunction("length", K_NUMBER, length_params_name, length_params_type, length_params_length);
 
     return 0;
 }
