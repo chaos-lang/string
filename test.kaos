@@ -53,3 +53,13 @@ print string.is_upper("HELLO WORLD 01234")
 print string.is_upper("HeLlO WoRLd")
 print string.is_upper(" ")
 print string.is_upper("")
+
+// String constants
+print string.whitespace()
+print string.ascii_lowercase()
+print string.ascii_uppercase()
+print string.ascii_letters()
+print string.digits()
+print string.hexdigits()
+print string.octdigits()
+print string.punctuation()

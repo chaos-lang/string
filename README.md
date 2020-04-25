@@ -202,3 +202,77 @@ true
 kaos> string.is_upper("")
 false
 ```
+
+## String constants
+
+### string.whitespace()
+
+Returns the string that contains whitespace characters ` \t\n\r\v\f`.
+
+```chaos
+kaos> string.whitespace()
+ \t\n\r\v\f
+```
+
+### string.ascii_lowercase()
+
+Returns the string that contains [ASCII](https://en.wikipedia.org/wiki/ASCII) lowercase letters `abcdefghijklmnopqrstuvwxyz`.
+
+```chaos
+kaos> string.ascii_lowercase()
+abcdefghijklmnopqrstuvwxyz
+```
+
+### string.ascii_uppercase()
+
+Returns the string that contains [ASCII](https://en.wikipedia.org/wiki/ASCII) uppercase letters `ABCDEFGHIJKLMNOPQRSTUVWXYZ`.
+
+```chaos
+kaos> string.ascii_uppercase()
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+```
+
+### string.ascii_letters()
+
+Returns the string that contains [ASCII](https://en.wikipedia.org/wiki/ASCII) letters `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`.
+
+```chaos
+kaos> string.ascii_letters()
+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+```
+
+### string.digits()
+
+Returns the string that contains decimal digits `0123456789`.
+
+```chaos
+kaos> string.digits()
+0123456789
+```
+
+### string.hexdigits()
+
+Returns the string that contains hexadecimal digits `0123456789abcdefABCDEF`.
+
+```chaos
+kaos> string.hexdigits()
+0123456789abcdefABCDEF
+```
+
+### string.octdigits()
+
+Returns the string that contains octal digits `0123456789`.
+
+```chaos
+kaos> string.octdigits()
+01234567
+```
+
+### string.punctuation()
+
+Returns the characters considered punctuation according to [ASCII](https://en.wikipedia.org/wiki/ASCII) `!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~`
+
+```chaos
+kaos> string.punctuation()
+!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+```

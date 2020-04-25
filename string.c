@@ -4,6 +4,7 @@
 
 #include "Chaos.h"
 
+
 // String operations
 
 // string.replace(str haystack, str needle, str replacement)
@@ -524,6 +525,106 @@ int KAOS_EXPORT Kaos_is_upper()
 }
 
 
+// String constants
+
+char* whitespace = " \\t\\n\\r\\v\\f";
+char* ascii_lowercase = "abcdefghijklmnopqrstuvwxyz";
+char* ascii_uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+char* ascii_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+char* digits = "0123456789";
+char* hexdigits = "0123456789abcdefABCDEF";
+char* octdigits = "01234567";
+char* punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
+char *whitespace_params_name[] = {};
+unsigned whitespace_params_type[] = {};
+unsigned short whitespace_params_length = 0;
+int KAOS_EXPORT Kaos_whitespace()
+{
+    char* result = malloc(strlen(whitespace) + 1);
+    strcpy(result, whitespace);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
+char *ascii_lowercase_params_name[] = {};
+unsigned ascii_lowercase_params_type[] = {};
+unsigned short ascii_lowercase_params_length = 0;
+int KAOS_EXPORT Kaos_ascii_lowercase()
+{
+    char* result = malloc(strlen(ascii_lowercase) + 1);
+    strcpy(result, ascii_lowercase);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
+char *ascii_uppercase_params_name[] = {};
+unsigned ascii_uppercase_params_type[] = {};
+unsigned short ascii_uppercase_params_length = 0;
+int KAOS_EXPORT Kaos_ascii_uppercase()
+{
+    char* result = malloc(strlen(ascii_uppercase) + 1);
+    strcpy(result, ascii_uppercase);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
+char *ascii_letters_params_name[] = {};
+unsigned ascii_letters_params_type[] = {};
+unsigned short ascii_letters_params_length = 0;
+int KAOS_EXPORT Kaos_ascii_letters()
+{
+    char* result = malloc(strlen(ascii_letters) + 1);
+    strcpy(result, ascii_letters);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
+char *digits_params_name[] = {};
+unsigned digits_params_type[] = {};
+unsigned short digits_params_length = 0;
+int KAOS_EXPORT Kaos_digits()
+{
+    char* result = malloc(strlen(digits) + 1);
+    strcpy(result, digits);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
+char *hexdigits_params_name[] = {};
+unsigned hexdigits_params_type[] = {};
+unsigned short hexdigits_params_length = 0;
+int KAOS_EXPORT Kaos_hexdigits()
+{
+    char* result = malloc(strlen(hexdigits) + 1);
+    strcpy(result, hexdigits);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
+char *octdigits_params_name[] = {};
+unsigned octdigits_params_type[] = {};
+unsigned short octdigits_params_length = 0;
+int KAOS_EXPORT Kaos_octdigits()
+{
+    char* result = malloc(strlen(octdigits) + 1);
+    strcpy(result, octdigits);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
+char *punctuation_params_name[] = {};
+unsigned punctuation_params_type[] = {};
+unsigned short punctuation_params_length = 0;
+int KAOS_EXPORT Kaos_punctuation()
+{
+    char* result = malloc(strlen(punctuation) + 1);
+    strcpy(result, punctuation);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
+
 int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
@@ -546,6 +647,16 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos.defineFunction("is_space", K_BOOL, is_space_params_name, is_space_params_type, is_space_params_length);
     kaos.defineFunction("is_lower", K_BOOL, is_lower_params_name, is_lower_params_type, is_lower_params_length);
     kaos.defineFunction("is_upper", K_BOOL, is_upper_params_name, is_upper_params_type, is_upper_params_length);
+
+    // String constants
+    kaos.defineFunction("whitespace", K_STRING, whitespace_params_name, whitespace_params_type, whitespace_params_length);
+    kaos.defineFunction("ascii_lowercase", K_STRING, ascii_lowercase_params_name, ascii_uppercase_params_type, ascii_lowercase_params_length);
+    kaos.defineFunction("ascii_uppercase", K_STRING, ascii_uppercase_params_name, ascii_uppercase_params_type, ascii_uppercase_params_length);
+    kaos.defineFunction("ascii_letters", K_STRING, ascii_letters_params_name, ascii_letters_params_type, ascii_letters_params_length);
+    kaos.defineFunction("digits", K_STRING, digits_params_name, digits_params_type, digits_params_length);
+    kaos.defineFunction("hexdigits", K_STRING, hexdigits_params_name, hexdigits_params_type, hexdigits_params_length);
+    kaos.defineFunction("octdigits", K_STRING, octdigits_params_name, octdigits_params_type, octdigits_params_length);
+    kaos.defineFunction("punctuation", K_STRING, punctuation_params_name, punctuation_params_type, punctuation_params_length);
 
     return 0;
 }
