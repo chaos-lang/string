@@ -7,7 +7,7 @@
 
 // String operations
 
-// string.replace(str haystack, str needle, str replacement)
+// str string.replace(str haystack, str needle, str replacement)
 
 char *str_replace(char *haystack, char *needle, char *replacement) {
     char *result;
@@ -72,7 +72,7 @@ int KAOS_EXPORT Kaos_replace()
     return 0;
 }
 
-// string.upper(str s)
+// str string.upper(str s)
 
 void str_upper(char * s) {
     while (*s) {
@@ -96,7 +96,7 @@ int KAOS_EXPORT Kaos_upper()
     return 0;
 }
 
-// string.lower(str s)
+// str string.lower(str s)
 
 void str_lower(char * s) {
     while (*s) {
@@ -120,7 +120,7 @@ int KAOS_EXPORT Kaos_lower()
     return 0;
 }
 
-// string.capitalize(str s)
+// str string.capitalize(str s)
 
 void str_capitalize(char * s) {
     while (*s) {
@@ -144,7 +144,7 @@ int KAOS_EXPORT Kaos_capitalize()
     return 0;
 }
 
-// string.concat(str s)
+// str string.concat(str s)
 
 char *str_concat(char *s1, const char *s2)
 {
@@ -183,7 +183,7 @@ int KAOS_EXPORT Kaos_concat()
     return 0;
 }
 
-// string.split(str s, str delimiter)
+// str string.split(str s, str delimiter)
 
 char *split_params_name[] = {
     "s",
@@ -214,7 +214,7 @@ int KAOS_EXPORT Kaos_split()
     return 0;
 }
 
-// string.join(list words, str delimiter)
+// list string.join(list words, str delimiter)
 
 char *join_params_name[] = {
     "words",
@@ -227,14 +227,12 @@ unsigned join_params_type[] = {
 unsigned short join_params_length = (unsigned short) sizeof(join_params_type) / sizeof(unsigned);
 int KAOS_EXPORT Kaos_join()
 {
-    char* words = malloc(strlen(join_params_name[0]) + 1);
-    strcpy(words, join_params_name[0]);
     char* separator = kaos.getVariableString(join_params_name[1]);
 
     char* result = "";
-    unsigned long length = kaos.getListLength(words);
+    unsigned long length = kaos.getListLength(join_params_name[0]);
     for (unsigned long i = 0; i < length; i++) {
-        char* value = kaos.getListElementString(words, i);
+        char* value = kaos.getListElementString(join_params_name[0], i);
         result = str_concat(result, value);
         free(value);
         if (i + 1 != length) {
@@ -242,7 +240,6 @@ int KAOS_EXPORT Kaos_join()
         }
     }
 
-    free(words);
     free(separator);
     kaos.returnVariableString(result);
     return 0;
@@ -308,7 +305,7 @@ char* escape_the_sequences_in_string_literal(char* string) {
     return new_string;
 }
 
-// string.length(str s)
+// num string.length(str s)
 
 char *length_params_name[] = {
     "s"
@@ -326,7 +323,7 @@ int KAOS_EXPORT Kaos_length()
     return 0;
 }
 
-// string.is_empty(str s)
+// bool string.is_empty(str s)
 
 char *is_empty_params_name[] = {
     "s"
@@ -344,7 +341,7 @@ int KAOS_EXPORT Kaos_is_empty()
     return 0;
 }
 
-// string.is_numeric(str s)
+// bool string.is_numeric(str s)
 
 bool str_is_numeric(const char * s) {
     if (s == NULL || *s == '\0')
@@ -374,7 +371,7 @@ int KAOS_EXPORT Kaos_is_numeric()
     return 0;
 }
 
-// string.is_alpha(str s)
+// bool string.is_alpha(str s)
 
 bool str_is_alpha(const char * s) {
     if (s == NULL || *s == '\0')
@@ -404,7 +401,7 @@ int KAOS_EXPORT Kaos_is_alpha()
     return 0;
 }
 
-// string.is_alnum(str s)
+// bool string.is_alnum(str s)
 
 bool str_is_alnum(const char * s) {
     if (s == NULL || *s == '\0')
@@ -434,7 +431,7 @@ int KAOS_EXPORT Kaos_is_alnum()
     return 0;
 }
 
-// string.is_space(str s)
+// bool string.is_space(str s)
 
 bool str_is_space(const char * s) {
     if (s == NULL || *s == '\0')
@@ -464,7 +461,7 @@ int KAOS_EXPORT Kaos_is_space()
     return 0;
 }
 
-// string.is_lower(str s)
+// bool string.is_lower(str s)
 
 bool str_is_lower(const char * s) {
     if (s == NULL || *s == '\0')
@@ -494,7 +491,7 @@ int KAOS_EXPORT Kaos_is_lower()
     return 0;
 }
 
-// string.is_upper(str s)
+// bool string.is_upper(str s)
 
 bool str_is_upper(const char * s) {
     if (s == NULL || *s == '\0')
