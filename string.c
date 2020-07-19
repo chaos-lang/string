@@ -7,6 +7,33 @@
 
 // String operations
 
+// num string.search(str haystack, str needle)
+
+char *search_params_name[] = {
+    "haystack",
+    "needle"
+};
+unsigned search_params_type[] = {
+    K_STRING,
+    K_STRING
+};
+unsigned short search_params_length = (unsigned short) sizeof(search_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_search()
+{
+    char* haystack = kaos.getVariableString(search_params_name[0]);
+    char* needle = kaos.getVariableString(search_params_name[1]);
+    long long pos = -1;
+
+    char *p = strstr(haystack, needle);
+    if (p)
+        pos = (long long)(p - haystack);
+
+    free(haystack);
+    free(needle);
+    kaos.returnVariableInt(pos);
+    return 0;
+}
+
 // str string.replace(str haystack, str needle, str replacement)
 
 char *str_replace(char *haystack, char *needle, char *replacement) {
@@ -49,7 +76,7 @@ char *str_replace(char *haystack, char *needle, char *replacement) {
 }
 
 char *replace_params_name[] = {
-    "target",
+    "haystack",
     "needle",
     "replacement"
 };
@@ -61,11 +88,11 @@ unsigned replace_params_type[] = {
 unsigned short replace_params_length = (unsigned short) sizeof(replace_params_type) / sizeof(unsigned);
 int KAOS_EXPORT Kaos_replace()
 {
-    char* target = kaos.getVariableString(replace_params_name[0]);
+    char* haystack = kaos.getVariableString(replace_params_name[0]);
     char* needle = kaos.getVariableString(replace_params_name[1]);
     char* replacement = kaos.getVariableString(replace_params_name[2]);
-    char* result = str_replace(target, needle, replacement);
-    free(target);
+    char* result = str_replace(haystack, needle, replacement);
+    free(haystack);
     free(needle);
     free(replacement);
     kaos.returnVariableString(result);
@@ -627,6 +654,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos = _kaos;
 
     // String operations
+    kaos.defineFunction("search", K_NUMBER, search_params_name, search_params_type, search_params_length);
     kaos.defineFunction("replace", K_STRING, replace_params_name, replace_params_type, replace_params_length);
     kaos.defineFunction("upper", K_STRING, upper_params_name, upper_params_type, upper_params_length);
     kaos.defineFunction("lower", K_STRING, lower_params_name, lower_params_type, lower_params_length);

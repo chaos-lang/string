@@ -1,6 +1,8 @@
 import string
 
 // String operations
+print string.search("hello world", "world")
+print string.search("hello world", "friend")
 print string.replace("hello world", "world", "friend")
 print string.upper("hello world")
 print string.lower("HeLlO WoRLd")
