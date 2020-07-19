@@ -1,9 +1,6 @@
 import string
 
-// String operations
-print string.search("hello world", "world")
-print string.search("hello world", "friend")
-print string.replace("hello world", "world", "friend")
+// String Operations
 print string.upper("hello world")
 print string.lower("HeLlO WoRLd")
 print string.capitalize("hello world")
@@ -14,7 +11,12 @@ list a = ["foo", "bar", "baz"]
 print string.join(a, " ")
 print string.join(a, "")
 
-// Information functions
+// Searching & Replacing
+print string.search("hello world", "world")
+print string.search("hello world", "friend")
+print string.replace("hello world", "world", "friend")
+
+// Information Functions
 print string.length("hello world")
 print string.length("")
 print string.is_empty("hello world")
@@ -56,7 +58,7 @@ print string.is_upper("HeLlO WoRLd")
 print string.is_upper(" ")
 print string.is_upper("")
 
-// String constants
+// String Constants
 print string.whitespace()
 print string.ascii_lowercase()
 print string.ascii_uppercase()

@@ -5,7 +5,182 @@
 #include "Chaos.h"
 
 
-// String operations
+// String Operations
+
+// str string.upper(str s)
+
+void str_upper(char * s) {
+    while (*s) {
+        *s = toupper((unsigned char) *s);
+        s++;
+    }
+}
+
+char *upper_params_name[] = {
+    "s"
+};
+unsigned upper_params_type[] = {
+    K_STRING
+};
+unsigned short upper_params_length = (unsigned short) sizeof(upper_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_upper()
+{
+    char* s = kaos.getVariableString(upper_params_name[0]);
+    str_upper(s);
+    kaos.returnVariableString(s);
+    return 0;
+}
+
+// str string.lower(str s)
+
+void str_lower(char * s) {
+    while (*s) {
+        *s = tolower((unsigned char) *s);
+        s++;
+    }
+}
+
+char *lower_params_name[] = {
+    "s"
+};
+unsigned lower_params_type[] = {
+    K_STRING
+};
+unsigned short lower_params_length = (unsigned short) sizeof(lower_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_lower()
+{
+    char* s = kaos.getVariableString(lower_params_name[0]);
+    str_lower(s);
+    kaos.returnVariableString(s);
+    return 0;
+}
+
+// str string.capitalize(str s)
+
+void str_capitalize(char * s) {
+    while (*s) {
+        *s = toupper((unsigned char) *s);
+        break;
+    }
+}
+
+char *capitalize_params_name[] = {
+    "s"
+};
+unsigned capitalize_params_type[] = {
+    K_STRING
+};
+unsigned short capitalize_params_length = (unsigned short) sizeof(capitalize_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_capitalize()
+{
+    char* s = kaos.getVariableString(capitalize_params_name[0]);
+    str_capitalize(s);
+    kaos.returnVariableString(s);
+    return 0;
+}
+
+// str string.concat(str s)
+
+char *str_concat(char *s1, const char *s2)
+{
+    size_t n = strlen(s1);
+
+    char *p = (char *)malloc(n + strlen(s2) + 1);
+
+    if (p) {
+        strcpy(p, s1);
+        strcpy(p + n, s2);
+    }
+
+    if ((s1 != NULL) && (s1[0] != '\0')) {
+        free(s1);
+    }
+    return p;
+}
+
+char *concat_params_name[] = {
+    "s1",
+    "s2"
+};
+unsigned concat_params_type[] = {
+    K_STRING,
+    K_STRING
+};
+unsigned short concat_params_length = (unsigned short) sizeof(concat_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_concat()
+{
+    char* s1 = kaos.getVariableString(concat_params_name[0]);
+    char* s2 = kaos.getVariableString(concat_params_name[1]);
+    s1 = str_concat(s1, s2);
+    free(s2);
+    kaos.returnVariableString(s1);
+    return 0;
+}
+
+// str string.split(str s, str delimiter)
+
+char *split_params_name[] = {
+    "s",
+    "delimiter"
+};
+unsigned split_params_type[] = {
+    K_STRING,
+    K_STRING
+};
+unsigned short split_params_length = (unsigned short) sizeof(split_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_split()
+{
+    char* s = kaos.getVariableString(split_params_name[0]);
+    char* delimiter = kaos.getVariableString(split_params_name[1]);
+
+    kaos.startBuildingList();
+
+    char* token = strtok(s, delimiter);
+
+    while (token != NULL) {
+        kaos.createVariableString(NULL, token);
+        token = strtok(NULL, delimiter);
+    }
+
+    free(s);
+    free(delimiter);
+    kaos.returnList(K_ANY);
+    return 0;
+}
+
+// list string.join(list words, str delimiter)
+
+char *join_params_name[] = {
+    "words",
+    "separator"
+};
+unsigned join_params_type[] = {
+    K_LIST,
+    K_STRING
+};
+unsigned short join_params_length = (unsigned short) sizeof(join_params_type) / sizeof(unsigned);
+int KAOS_EXPORT Kaos_join()
+{
+    char* separator = kaos.getVariableString(join_params_name[1]);
+
+    char* result = "";
+    unsigned long length = kaos.getListLength(join_params_name[0]);
+    for (unsigned long i = 0; i < length; i++) {
+        char* value = kaos.getListElementString(join_params_name[0], i);
+        result = str_concat(result, value);
+        free(value);
+        if (i + 1 != length) {
+            result = str_concat(result, separator);
+        }
+    }
+
+    free(separator);
+    kaos.returnVariableString(result);
+    return 0;
+}
+
+
+// Searching & Replacing
 
 // num string.search(str haystack, str needle)
 
@@ -99,181 +274,8 @@ int KAOS_EXPORT Kaos_replace()
     return 0;
 }
 
-// str string.upper(str s)
 
-void str_upper(char * s) {
-    while (*s) {
-        *s = toupper((unsigned char) *s);
-        s++;
-    }
-}
-
-char *upper_params_name[] = {
-    "s"
-};
-unsigned upper_params_type[] = {
-    K_STRING
-};
-unsigned short upper_params_length = (unsigned short) sizeof(upper_params_type) / sizeof(unsigned);
-int KAOS_EXPORT Kaos_upper()
-{
-    char* s = kaos.getVariableString(upper_params_name[0]);
-    str_upper(s);
-    kaos.returnVariableString(s);
-    return 0;
-}
-
-// str string.lower(str s)
-
-void str_lower(char * s) {
-    while (*s) {
-        *s = tolower((unsigned char) *s);
-        s++;
-    }
-}
-
-char *lower_params_name[] = {
-    "s"
-};
-unsigned lower_params_type[] = {
-    K_STRING
-};
-unsigned short lower_params_length = (unsigned short) sizeof(lower_params_type) / sizeof(unsigned);
-int KAOS_EXPORT Kaos_lower()
-{
-    char* s = kaos.getVariableString(lower_params_name[0]);
-    str_lower(s);
-    kaos.returnVariableString(s);
-    return 0;
-}
-
-// str string.capitalize(str s)
-
-void str_capitalize(char * s) {
-    while (*s) {
-        *s = toupper((unsigned char) *s);
-        break;
-    }
-}
-
-char *capitalize_params_name[] = {
-    "s"
-};
-unsigned capitalize_params_type[] = {
-    K_STRING
-};
-unsigned short capitalize_params_length = (unsigned short) sizeof(capitalize_params_type) / sizeof(unsigned);
-int KAOS_EXPORT Kaos_capitalize()
-{
-    char* s = kaos.getVariableString(capitalize_params_name[0]);
-    str_capitalize(s);
-    kaos.returnVariableString(s);
-    return 0;
-}
-
-// str string.concat(str s)
-
-char *str_concat(char *s1, const char *s2)
-{
-    size_t n = strlen(s1);
-
-    char *p = (char *)malloc(n + strlen(s2) + 1);
-
-    if (p) {
-        strcpy(p, s1);
-        strcpy(p + n, s2);
-    }
-
-    if ((s1 != NULL) && (s1[0] != '\0')) {
-        free(s1);
-    }
-    return p;
-}
-
-
-char *concat_params_name[] = {
-    "s1",
-    "s2"
-};
-unsigned concat_params_type[] = {
-    K_STRING,
-    K_STRING
-};
-unsigned short concat_params_length = (unsigned short) sizeof(concat_params_type) / sizeof(unsigned);
-int KAOS_EXPORT Kaos_concat()
-{
-    char* s1 = kaos.getVariableString(concat_params_name[0]);
-    char* s2 = kaos.getVariableString(concat_params_name[1]);
-    s1 = str_concat(s1, s2);
-    free(s2);
-    kaos.returnVariableString(s1);
-    return 0;
-}
-
-// str string.split(str s, str delimiter)
-
-char *split_params_name[] = {
-    "s",
-    "delimiter"
-};
-unsigned split_params_type[] = {
-    K_STRING,
-    K_STRING
-};
-unsigned short split_params_length = (unsigned short) sizeof(split_params_type) / sizeof(unsigned);
-int KAOS_EXPORT Kaos_split()
-{
-    char* s = kaos.getVariableString(split_params_name[0]);
-    char* delimiter = kaos.getVariableString(split_params_name[1]);
-
-    kaos.startBuildingList();
-
-    char* token = strtok(s, delimiter);
-
-    while (token != NULL) {
-        kaos.createVariableString(NULL, token);
-        token = strtok(NULL, delimiter);
-    }
-
-    free(s);
-    free(delimiter);
-    kaos.returnList(K_ANY);
-    return 0;
-}
-
-// list string.join(list words, str delimiter)
-
-char *join_params_name[] = {
-    "words",
-    "separator"
-};
-unsigned join_params_type[] = {
-    K_LIST,
-    K_STRING
-};
-unsigned short join_params_length = (unsigned short) sizeof(join_params_type) / sizeof(unsigned);
-int KAOS_EXPORT Kaos_join()
-{
-    char* separator = kaos.getVariableString(join_params_name[1]);
-
-    char* result = "";
-    unsigned long length = kaos.getListLength(join_params_name[0]);
-    for (unsigned long i = 0; i < length; i++) {
-        char* value = kaos.getListElementString(join_params_name[0], i);
-        result = str_concat(result, value);
-        free(value);
-        if (i + 1 != length) {
-            result = str_concat(result, separator);
-        }
-    }
-
-    free(separator);
-    kaos.returnVariableString(result);
-    return 0;
-}
-
-
-// Information functions
+// Information Functions
 
 void remove_nth_char(char* string, long long n) {
     memmove(&string[n], &string[n + 1], strlen(string) - n);
@@ -549,7 +551,7 @@ int KAOS_EXPORT Kaos_is_upper()
 }
 
 
-// String constants
+// String Constants
 
 char* whitespace = " \\t\\n\\r\\v\\f";
 char* ascii_lowercase = "abcdefghijklmnopqrstuvwxyz";
@@ -653,9 +655,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
 
-    // String operations
-    kaos.defineFunction("search", K_NUMBER, search_params_name, search_params_type, search_params_length);
-    kaos.defineFunction("replace", K_STRING, replace_params_name, replace_params_type, replace_params_length);
+    // String Operations
     kaos.defineFunction("upper", K_STRING, upper_params_name, upper_params_type, upper_params_length);
     kaos.defineFunction("lower", K_STRING, lower_params_name, lower_params_type, lower_params_length);
     kaos.defineFunction("capitalize", K_STRING, capitalize_params_name, capitalize_params_type, capitalize_params_length);
@@ -663,7 +663,11 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos.defineFunction("split", K_LIST, split_params_name, split_params_type, split_params_length);
     kaos.defineFunction("join", K_STRING, join_params_name, join_params_type, join_params_length);
 
-    // Information functions
+    // Searching & Replacing
+    kaos.defineFunction("search", K_NUMBER, search_params_name, search_params_type, search_params_length);
+    kaos.defineFunction("replace", K_STRING, replace_params_name, replace_params_type, replace_params_length);
+
+    // Information Functions
     kaos.defineFunction("length", K_NUMBER, length_params_name, length_params_type, length_params_length);
     kaos.defineFunction("is_empty", K_BOOL, is_empty_params_name, is_empty_params_type, is_empty_params_length);
     kaos.defineFunction("is_numeric", K_BOOL, is_numeric_params_name, is_empty_params_type, is_empty_params_length);
@@ -673,7 +677,7 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos.defineFunction("is_lower", K_BOOL, is_lower_params_name, is_lower_params_type, is_lower_params_length);
     kaos.defineFunction("is_upper", K_BOOL, is_upper_params_name, is_upper_params_type, is_upper_params_length);
 
-    // String constants
+    // String Constants
     kaos.defineFunction("whitespace", K_STRING, whitespace_params_name, whitespace_params_type, whitespace_params_length);
     kaos.defineFunction("ascii_lowercase", K_STRING, ascii_lowercase_params_name, ascii_uppercase_params_type, ascii_lowercase_params_length);
     kaos.defineFunction("ascii_uppercase", K_STRING, ascii_uppercase_params_name, ascii_uppercase_params_type, ascii_uppercase_params_length);

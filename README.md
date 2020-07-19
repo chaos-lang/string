@@ -10,27 +10,7 @@ and import it with:
 import string
 ```
 
-## String operations
-
-### list string.search(str haystack, str needle)
-
-Finds the position of the first occurrence of substring `needle` in string `haystack` if successful. Returns `-1` if unsuccessful.
-
-```chaos
-kaos> string.search("hello world", "world")
-6
-kaos> string.search("hello world", "friend")
--1
-```
-
-### str string.replace(str haystack, str needle, str replacement)
-
-Replaces all occurrences of the `needle` string with the `replacement` string.
-
-```chaos
-kaos> string.replace("hello world", "world", "friend")
-hello friend
-```
+## String Operations
 
 ### str string.upper(str s)
 
@@ -90,7 +70,29 @@ kaos> string.join(a, "")
 foobarbaz
 ```
 
-## Information functions
+## Searching & Replacing
+
+### list string.search(str haystack, str needle)
+
+Finds the position of the first occurrence of substring `needle` in string `haystack` if successful. Returns `-1` if unsuccessful.
+
+```chaos
+kaos> string.search("hello world", "world")
+6
+kaos> string.search("hello world", "friend")
+-1
+```
+
+### str string.replace(str haystack, str needle, str replacement)
+
+Replaces all occurrences of the `needle` string with the `replacement` string.
+
+```chaos
+kaos> string.replace("hello world", "world", "friend")
+hello friend
+```
+
+## Information Functions
 
 ### num string.length(str s)
 
@@ -214,7 +216,7 @@ kaos> string.is_upper("")
 false
 ```
 
-## String constants
+## String Constants
 
 ### str string.whitespace()
 

@@ -1,6 +1,3 @@
-6
--1
-hello friend
 HELLO WORLD
 hello world
 Hello world
@@ -9,6 +6,9 @@ hello world
 ['A', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
 foo bar baz
 foobarbaz
+6
+-1
+hello friend
 11
 0
 false
