@@ -117,7 +117,7 @@ int KAOS_EXPORT Kaos_concat()
     return 0;
 }
 
-// str string.split(str s, str delimiter)
+// list string.split(str s, str delimiter = ' ')
 
 char *split_params_name[] = {
     "s",
@@ -148,7 +148,7 @@ int KAOS_EXPORT Kaos_split()
     return 0;
 }
 
-// list string.join(list words, str delimiter)
+// str string.join(list words, str separator = ' ')
 
 char *join_params_name[] = {
     "words",
