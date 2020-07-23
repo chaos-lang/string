@@ -655,37 +655,53 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
 {
     kaos = _kaos;
 
+    struct KaosValue split_optional_delimiter;
+    char *split_optional_delimiter_value = " ";
+    split_optional_delimiter.s = malloc(1 + strlen(split_optional_delimiter_value));
+    strcpy(split_optional_delimiter.s, split_optional_delimiter_value);
+    struct KaosValue split_optional_params[] = {
+        split_optional_delimiter
+    };
+
+    struct KaosValue join_optional_separator;
+    char *join_optional_separator_value = " ";
+    join_optional_separator.s = malloc(1 + strlen(join_optional_separator_value));
+    strcpy(join_optional_separator.s, join_optional_separator_value);
+    struct KaosValue join_optional_params[] = {
+        join_optional_separator
+    };
+
     // String Operations
-    kaos.defineFunction("upper", K_STRING, K_ANY, upper_params_name, upper_params_type, upper_params_length);
-    kaos.defineFunction("lower", K_STRING, K_ANY, lower_params_name, lower_params_type, lower_params_length);
-    kaos.defineFunction("capitalize", K_STRING, K_ANY, capitalize_params_name, capitalize_params_type, capitalize_params_length);
-    kaos.defineFunction("concat", K_STRING, K_ANY, concat_params_name, concat_params_type, concat_params_length);
-    kaos.defineFunction("split", K_LIST, K_ANY, split_params_name, split_params_type, split_params_length);
-    kaos.defineFunction("join", K_STRING, K_ANY, join_params_name, join_params_type, join_params_length);
+    kaos.defineFunction("upper", K_STRING, K_ANY, upper_params_name, upper_params_type, upper_params_length, NULL, 0);
+    kaos.defineFunction("lower", K_STRING, K_ANY, lower_params_name, lower_params_type, lower_params_length, NULL, 0);
+    kaos.defineFunction("capitalize", K_STRING, K_ANY, capitalize_params_name, capitalize_params_type, capitalize_params_length, NULL, 0);
+    kaos.defineFunction("concat", K_STRING, K_ANY, concat_params_name, concat_params_type, concat_params_length, NULL, 0);
+    kaos.defineFunction("split", K_LIST, K_ANY, split_params_name, split_params_type, split_params_length, split_optional_params, 1);
+    kaos.defineFunction("join", K_STRING, K_ANY, join_params_name, join_params_type, join_params_length, join_optional_params, 1);
 
     // Searching & Replacing
-    kaos.defineFunction("search", K_NUMBER, K_ANY, search_params_name, search_params_type, search_params_length);
-    kaos.defineFunction("replace", K_STRING, K_ANY, replace_params_name, replace_params_type, replace_params_length);
+    kaos.defineFunction("search", K_NUMBER, K_ANY, search_params_name, search_params_type, search_params_length, NULL, 0);
+    kaos.defineFunction("replace", K_STRING, K_ANY, replace_params_name, replace_params_type, replace_params_length, NULL, 0);
 
     // Information Functions
-    kaos.defineFunction("length", K_NUMBER, K_ANY, length_params_name, length_params_type, length_params_length);
-    kaos.defineFunction("is_empty", K_BOOL, K_ANY, is_empty_params_name, is_empty_params_type, is_empty_params_length);
-    kaos.defineFunction("is_numeric", K_BOOL, K_ANY, is_numeric_params_name, is_empty_params_type, is_empty_params_length);
-    kaos.defineFunction("is_alpha", K_BOOL, K_ANY, is_alpha_params_name, is_alpha_params_type, is_alpha_params_length);
-    kaos.defineFunction("is_alnum", K_BOOL, K_ANY, is_alnum_params_name, is_alnum_params_type, is_alnum_params_length);
-    kaos.defineFunction("is_space", K_BOOL, K_ANY, is_space_params_name, is_space_params_type, is_space_params_length);
-    kaos.defineFunction("is_lower", K_BOOL, K_ANY, is_lower_params_name, is_lower_params_type, is_lower_params_length);
-    kaos.defineFunction("is_upper", K_BOOL, K_ANY, is_upper_params_name, is_upper_params_type, is_upper_params_length);
+    kaos.defineFunction("length", K_NUMBER, K_ANY, length_params_name, length_params_type, length_params_length, NULL, 0);
+    kaos.defineFunction("is_empty", K_BOOL, K_ANY, is_empty_params_name, is_empty_params_type, is_empty_params_length, NULL, 0);
+    kaos.defineFunction("is_numeric", K_BOOL, K_ANY, is_numeric_params_name, is_empty_params_type, is_empty_params_length, NULL, 0);
+    kaos.defineFunction("is_alpha", K_BOOL, K_ANY, is_alpha_params_name, is_alpha_params_type, is_alpha_params_length, NULL, 0);
+    kaos.defineFunction("is_alnum", K_BOOL, K_ANY, is_alnum_params_name, is_alnum_params_type, is_alnum_params_length, NULL, 0);
+    kaos.defineFunction("is_space", K_BOOL, K_ANY, is_space_params_name, is_space_params_type, is_space_params_length, NULL, 0);
+    kaos.defineFunction("is_lower", K_BOOL, K_ANY, is_lower_params_name, is_lower_params_type, is_lower_params_length, NULL, 0);
+    kaos.defineFunction("is_upper", K_BOOL, K_ANY, is_upper_params_name, is_upper_params_type, is_upper_params_length, NULL, 0);
 
     // String Constants
-    kaos.defineFunction("whitespace", K_STRING, K_ANY, whitespace_params_name, whitespace_params_type, whitespace_params_length);
-    kaos.defineFunction("ascii_lowercase", K_STRING, K_ANY, ascii_lowercase_params_name, ascii_uppercase_params_type, ascii_lowercase_params_length);
-    kaos.defineFunction("ascii_uppercase", K_STRING, K_ANY, ascii_uppercase_params_name, ascii_uppercase_params_type, ascii_uppercase_params_length);
-    kaos.defineFunction("ascii_letters", K_STRING, K_ANY, ascii_letters_params_name, ascii_letters_params_type, ascii_letters_params_length);
-    kaos.defineFunction("digits", K_STRING, K_ANY, digits_params_name, digits_params_type, digits_params_length);
-    kaos.defineFunction("hexdigits", K_STRING, K_ANY, hexdigits_params_name, hexdigits_params_type, hexdigits_params_length);
-    kaos.defineFunction("octdigits", K_STRING, K_ANY, octdigits_params_name, octdigits_params_type, octdigits_params_length);
-    kaos.defineFunction("punctuation", K_STRING, K_ANY, punctuation_params_name, punctuation_params_type, punctuation_params_length);
+    kaos.defineFunction("whitespace", K_STRING, K_ANY, whitespace_params_name, whitespace_params_type, whitespace_params_length, NULL, 0);
+    kaos.defineFunction("ascii_lowercase", K_STRING, K_ANY, ascii_lowercase_params_name, ascii_uppercase_params_type, ascii_lowercase_params_length, NULL, 0);
+    kaos.defineFunction("ascii_uppercase", K_STRING, K_ANY, ascii_uppercase_params_name, ascii_uppercase_params_type, ascii_uppercase_params_length, NULL, 0);
+    kaos.defineFunction("ascii_letters", K_STRING, K_ANY, ascii_letters_params_name, ascii_letters_params_type, ascii_letters_params_length, NULL, 0);
+    kaos.defineFunction("digits", K_STRING, K_ANY, digits_params_name, digits_params_type, digits_params_length, NULL, 0);
+    kaos.defineFunction("hexdigits", K_STRING, K_ANY, hexdigits_params_name, hexdigits_params_type, hexdigits_params_length, NULL, 0);
+    kaos.defineFunction("octdigits", K_STRING, K_ANY, octdigits_params_name, octdigits_params_type, octdigits_params_length, NULL, 0);
+    kaos.defineFunction("punctuation", K_STRING, K_ANY, punctuation_params_name, punctuation_params_type, punctuation_params_length, NULL, 0);
 
     return 0;
 }
