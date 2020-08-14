@@ -31,6 +31,7 @@ int KAOS_EXPORT Kaos_upper()
     char* s = kaos.getVariableString(upper_params_name[0]);
     str_upper(s);
     kaos.returnVariableString(s);
+    free(s);
     return 0;
 }
 
@@ -58,6 +59,7 @@ int KAOS_EXPORT Kaos_lower()
     char* s = kaos.getVariableString(lower_params_name[0]);
     str_lower(s);
     kaos.returnVariableString(s);
+    free(s);
     return 0;
 }
 
@@ -85,6 +87,7 @@ int KAOS_EXPORT Kaos_capitalize()
     char* s = kaos.getVariableString(capitalize_params_name[0]);
     str_capitalize(s);
     kaos.returnVariableString(s);
+    free(s);
     return 0;
 }
 
@@ -127,6 +130,7 @@ int KAOS_EXPORT Kaos_concat()
     s1 = str_concat(s1, s2);
     free(s2);
     kaos.returnVariableString(s1);
+    free(s1);
     return 0;
 }
 
@@ -165,7 +169,7 @@ int KAOS_EXPORT Kaos_split()
     return 0;
 }
 
-// str string.join(list words, str separator = ' ')
+// str string.join(str list words, str separator = ' ')
 
 char *join_params_name[] = {
     "words",
@@ -197,6 +201,7 @@ int KAOS_EXPORT Kaos_join()
 
     free(separator);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -301,6 +306,7 @@ int KAOS_EXPORT Kaos_replace()
     free(needle);
     free(replacement);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -625,6 +631,7 @@ int KAOS_EXPORT Kaos_whitespace()
     char* result = malloc(strlen(whitespace) + 1);
     strcpy(result, whitespace);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -637,6 +644,7 @@ int KAOS_EXPORT Kaos_ascii_lowercase()
     char* result = malloc(strlen(ascii_lowercase) + 1);
     strcpy(result, ascii_lowercase);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -649,6 +657,7 @@ int KAOS_EXPORT Kaos_ascii_uppercase()
     char* result = malloc(strlen(ascii_uppercase) + 1);
     strcpy(result, ascii_uppercase);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -661,6 +670,7 @@ int KAOS_EXPORT Kaos_ascii_letters()
     char* result = malloc(strlen(ascii_letters) + 1);
     strcpy(result, ascii_letters);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -673,6 +683,7 @@ int KAOS_EXPORT Kaos_digits()
     char* result = malloc(strlen(digits) + 1);
     strcpy(result, digits);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -685,6 +696,7 @@ int KAOS_EXPORT Kaos_hexdigits()
     char* result = malloc(strlen(hexdigits) + 1);
     strcpy(result, hexdigits);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -697,6 +709,7 @@ int KAOS_EXPORT Kaos_octdigits()
     char* result = malloc(strlen(octdigits) + 1);
     strcpy(result, octdigits);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -709,6 +722,7 @@ int KAOS_EXPORT Kaos_punctuation()
     char* result = malloc(strlen(punctuation) + 1);
     strcpy(result, punctuation);
     kaos.returnVariableString(result);
+    free(result);
     return 0;
 }
 
@@ -718,17 +732,13 @@ int KAOS_EXPORT KaosRegister(struct Kaos _kaos)
     kaos = _kaos;
 
     struct KaosValue split_optional_delimiter;
-    char *split_optional_delimiter_value = " ";
-    split_optional_delimiter.s = malloc(1 + strlen(split_optional_delimiter_value));
-    strcpy(split_optional_delimiter.s, split_optional_delimiter_value);
+    split_optional_delimiter.s = " ";
     struct KaosValue split_optional_params[] = {
         split_optional_delimiter
     };
 
     struct KaosValue join_optional_separator;
-    char *join_optional_separator_value = " ";
-    join_optional_separator.s = malloc(1 + strlen(join_optional_separator_value));
-    strcpy(join_optional_separator.s, join_optional_separator_value);
+    join_optional_separator.s = " ";
     struct KaosValue join_optional_params[] = {
         join_optional_separator
     };
