@@ -1,6 +1,6 @@
 {
     "name": "string",
-    "version": "1.0.4",
+    "version": "1.1.0",
     "description": "String library of the Chaos language.",
     "tags": ["official", "string", "str"],
     "type": "extension",
